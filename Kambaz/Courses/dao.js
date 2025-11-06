@@ -1,25 +1,23 @@
 import Database from "../Database/index.js";
 
-let { courses } = Database;
-
 export function findAllCourses() {
-  return courses;
+  return Database.courses;
 }
 
 export function createCourse(course) {
   const newCourse = { ...course, _id: Date.now().toString() };
-  courses = [...courses, newCourse];
+  Database.courses = [...Database.courses, newCourse];
   return newCourse;
 }
 
 export function deleteCourse(courseId) {
-  courses = courses.filter((course) => course._id !== courseId);
+  Database.courses = Database.courses.filter((course) => course._id !== courseId);
   return { status: "ok" };
 }
 
 export function updateCourse(courseId, courseUpdates) {
-  courses = courses.map((c) =>
+  Database.courses = Database.courses.map((c) =>
     c._id === courseId ? { ...c, ...courseUpdates } : c
   );
-  return courses.find((c) => c._id === courseId);
+  return Database.courses.find((c) => c._id === courseId);
 }
