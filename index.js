@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import mongoose from "mongoose";
 import Hello from "./Hello.js";
 import Lab5 from "./Lab5/index.js";
 import UserRoutes from "./Kambaz/Users/routes.js";
@@ -7,10 +8,21 @@ import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
+// import { seedModules } from "./Kambaz/Modules/seed.js";
 import cors from "cors";
 import session from "express-session";
 
 const app = express();
+
+// Connect to MongoDB
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
+mongoose.connect(CONNECTION_STRING)
+  .then(async () => {
+    console.log("✅ MongoDB connected successfully!");
+    // Seed modules (run once) - COMMENTED OUT AFTER MODULES IMPORTED
+    // await seedModules();
+  })
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 app.use(
   cors({

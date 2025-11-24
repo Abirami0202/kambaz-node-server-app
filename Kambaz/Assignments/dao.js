@@ -1,29 +1,26 @@
-import Database from "../Database/index.js";
+import AssignmentModel from "./model.js";
 
-let { assignments } = Database;
-
-export function findAssignmentsForCourse(courseId) {
-  return assignments.filter((assignment) => assignment.course === courseId);
+export async function findAssignmentsForCourse(courseId) {
+  return await AssignmentModel.find({ course: courseId.toString() });
 }
 
-export function createAssignment(assignment) {
-  const newAssignment = { ...assignment, _id: Date.now().toString() };
-  assignments = [...assignments, newAssignment];
-  return newAssignment;
+export async function createAssignment(assignment) {
+  delete assignment._id;
+  return await AssignmentModel.create(assignment);
 }
 
-export function deleteAssignment(assignmentId) {
-  assignments = assignments.filter((assignment) => assignment._id !== assignmentId);
-  return { status: "ok" };
+export async function deleteAssignment(assignmentId) {
+  return await AssignmentModel.deleteOne({ _id: assignmentId });
 }
 
-export function updateAssignment(assignmentId, assignmentUpdates) {
-  assignments = assignments.map((a) =>
-    a._id === assignmentId ? { ...a, ...assignmentUpdates } : a
+export async function updateAssignment(assignmentId, assignmentUpdates) {
+  return await AssignmentModel.findByIdAndUpdate(
+    assignmentId,
+    { $set: assignmentUpdates },
+    { new: true }
   );
-  return assignments.find((a) => a._id === assignmentId);
 }
 
-export function findAssignmentById(assignmentId) {
-  return assignments.find((assignment) => assignment._id === assignmentId);
-} 
+export async function findAssignmentById(assignmentId) {
+  return await AssignmentModel.findById(assignmentId);
+}
