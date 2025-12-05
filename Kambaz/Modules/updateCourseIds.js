@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import CourseModel from "../Courses/model.js";
 import ModuleModel from "./model.js";
 
-const CONNECTION_STRING = "mongodb://127.0.0.1:27017/kambaz";
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb+srv://abirami_t:YOUR_PASSWORD@cluster0.kxayyxt.mongodb.net/kambaz";
 
 // Mapping of old course names to old IDs
 const courseNameToOldId = {

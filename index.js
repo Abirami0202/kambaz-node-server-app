@@ -8,6 +8,8 @@ import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
+import QuizRoutes from "./Kambaz/Quizzes/routes.js";
+import QuestionRoutes from "./Kambaz/Questions/routes.js";
 // import { seedModules } from "./Kambaz/Modules/seed.js";
 import cors from "cors";
 import session from "express-session";
@@ -53,6 +55,8 @@ CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
 EnrollmentRoutes(app);
+QuizRoutes(app);
+QuestionRoutes(app);
 Lab5(app);
 Hello(app);
 
